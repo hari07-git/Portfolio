@@ -1,93 +1,10 @@
-import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import { PROFILE } from '../data';
-import { Download, Eye, FileText, Terminal, Cpu, CheckCircle, ExternalLink, X, MapPin, Mail, Phone, Calendar } from 'lucide-react';
-
-function AnimatedCounter({ value, duration = 2 }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-
-  useEffect(() => {
-    let startTime = null;
-    const endValue = parseInt(value);
-    if (isNaN(endValue)) {
-      setCount(value);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          const animate = (timestamp) => {
-            if (!startTime) startTime = timestamp;
-            const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
-            setCount(Math.floor(progress * endValue));
-            if (progress < 1) {
-              requestAnimationFrame(animate);
-            }
-          };
-          requestAnimationFrame(animate);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, [value, duration]);
-
-  const suffix = value.toString().includes('+') ? '+' : '';
-
-  return (
-    <span ref={ref} className="font-mono">
-      {count}
-      {suffix}
-    </span>
-  );
-}
+import { Download, Eye, FileText, X, MapPin, Mail, Phone, Calendar, ShieldCheck } from 'lucide-react';
 
 export default function Resume() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const containerRef = useRef(null);
-
-  // 3D Tilt for Right side holographic preview
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
-  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["8deg", "-8deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-8deg", "8deg"]);
-
-  // Holographic Glow Coordinates
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  function handleMouseMove(e) {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    
-    const mouseXPos = e.clientX - rect.left;
-    const mouseYPos = e.clientY - rect.top;
-    
-    const xPct = mouseXPos / width - 0.5;
-    const yPct = mouseYPos / height - 0.5;
-    
-    x.set(xPct);
-    y.set(yPct);
-
-    mouseX.set(mouseXPos);
-    mouseY.set(mouseYPos);
-  }
-
-  function handleMouseLeave() {
-    x.set(0);
-    y.set(0);
-  }
 
   // Handle body scroll when modal is open
   useEffect(() => {
@@ -101,183 +18,121 @@ export default function Resume() {
     };
   }, [isModalOpen]);
 
-  const stats = [
-    { label: "Projects Completed", value: "3+", color: "text-cyan-400", border: "border-cyan-500/20", glow: "rgba(34,211,238,0.15)" },
-    { label: "Technologies Mastered", value: "15+", color: "text-purple-400", border: "border-purple-500/20", glow: "rgba(168,85,247,0.15)" },
-    { label: "DSA Problems Solved", value: "250+", color: "text-emerald-400", border: "border-emerald-500/20", glow: "rgba(16,185,129,0.15)" },
-    { label: "Work Internships", value: "1", color: "text-amber-400", border: "border-amber-500/20", glow: "rgba(245,158,11,0.15)" }
-  ];
-
   return (
-    <section id="resume" className="py-32 relative z-10 overflow-hidden bg-[#030014]">
-      {/* Background glow meshes */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] pointer-events-none z-0"></div>
-      
-      <div className="container mx-auto px-6 relative z-10" ref={containerRef}>
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+    <section id="resume" className="py-24 relative z-10 bg-[#030014] overflow-hidden">
+      {/* Subtle background glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        
+        {/* Elegant Glass Card Container */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="max-w-4xl mx-auto rounded-3xl border border-white/10 bg-[#07051b]/40 backdrop-blur-xl p-8 md:p-12 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] group"
+        >
+          {/* Subtle brand neon glow border top */}
+          <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
           
-          {/* LEFT: Info & Stats */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col h-full justify-center"
-          >
-            <div className="text-sm font-mono text-primary tracking-widest mb-3 flex items-center gap-2">
-              <Terminal className="w-4 h-4 animate-pulse" />
-              <span>06 // PROFILE ARCHIVE</span>
-            </div>
+          <div className="grid md:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
             
-            <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
-              Resume <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">Terminal</span>
-            </h2>
-            
-            <p className="text-gray-400 text-lg leading-relaxed mb-10 max-w-xl font-light">
-              Access my fully compiled credentials, project history, and core engine specs. Download the verified system PDF or boot the interactive reader directly from the console.
-            </p>
+            {/* LEFT: Heading, Description, Buttons */}
+            <div>
+              <div className="text-xs font-mono text-primary/70 tracking-widest mb-3 uppercase">06 // Credentials</div>
+              
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
+                Curriculum <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">Vitae</span>
+              </h2>
+              
+              <p className="text-gray-400 text-base md:text-lg leading-relaxed mb-8 font-light max-w-md">
+                Download my latest resume containing projects, skills, internship experience, and technical expertise, or review it directly in the console.
+              </p>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-4 mb-10">
-              {stats.map((stat, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className={`p-6 rounded-2xl border ${stat.border} bg-[#07051b]/40 backdrop-blur-md relative group overflow-hidden`}
-                  style={{ boxShadow: `inset 0 0 12px ${stat.glow}` }}
+              {/* CTAs */}
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="/resume.pdf"
+                  download="Biyyani_Hari_Venkata_Gopal_Resume.pdf"
+                  className="group relative flex items-center gap-2.5 px-6 py-3.5 bg-gradient-to-r from-primary to-purple-600 rounded-xl font-bold text-white shadow-[0_0_15px_rgba(14,165,233,0.25)] hover:shadow-[0_0_25px_rgba(14,165,233,0.4)] transition-all duration-300 transform hover:-translate-y-0.5"
                 >
-                  <div className={`text-3xl font-black ${stat.color} mb-1 flex items-center gap-1`}>
-                    <AnimatedCounter value={stat.value} />
-                  </div>
-                  <div className="text-xs font-mono text-gray-500 uppercase tracking-wider">{stat.label}</div>
-                  
-                  {/* Subtle hover sweep */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 pointer-events-none" />
-                </motion.div>
-              ))}
+                  <Download className="w-4.5 h-4.5 group-hover:translate-y-[1px] transition-transform" />
+                  Download Resume
+                </a>
+
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="group flex items-center gap-2.5 px-6 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-xl font-bold text-gray-300 hover:text-white transition-all duration-300"
+                >
+                  <Eye className="w-4.5 h-4.5 group-hover:scale-105 transition-transform" />
+                  View Online
+                </button>
+              </div>
             </div>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-              <a
-                href="/resume.pdf"
-                download="Biyyani_Hari_Venkata_Gopal_Resume.pdf"
-                className="group relative flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary to-purple-600 rounded-2xl font-bold text-white shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:shadow-[0_0_30px_rgba(14,165,233,0.5)] transition-all duration-300 transform hover:-translate-y-0.5 overflow-hidden w-full sm:w-auto justify-center"
-              >
-                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <Download className="w-5 h-5 group-hover:translate-y-[2px] transition-transform duration-300" />
-                Download Verified PDF
-              </a>
-
-              <button
+            {/* RIGHT: Minimal Resume Preview */}
+            <div className="flex justify-center md:justify-end">
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
                 onClick={() => setIsModalOpen(true)}
-                className="group relative flex items-center gap-3 px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-2xl font-bold text-gray-300 hover:text-white transition-all duration-300 w-full sm:w-auto justify-center"
+                className="w-full max-w-[260px] aspect-[1/1.41] rounded-2xl border border-white/10 bg-[#0a0822] p-5 cursor-pointer relative overflow-hidden shadow-[0_15px_35px_rgba(0,0,0,0.5)] group/card"
               >
-                <Eye className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                Boot Interactive Reader
-              </button>
-            </div>
-          </motion.div>
+                {/* Subtle card glow border */}
+                <div className="absolute inset-0 border border-primary/0 group-hover/card:border-primary/30 rounded-2xl transition-colors duration-500" />
 
-          {/* RIGHT: Immersive Mockup Preview */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="perspective-[1000px] w-full"
-          >
-            <motion.div
-              style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              onClick={() => setIsModalOpen(true)}
-              className="w-full relative aspect-[3/4] rounded-3xl border border-white/10 bg-[#07051b]/80 backdrop-blur-xl p-6 transition-all duration-500 group cursor-pointer overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.6)]"
-            >
-              {/* Holographic Border Glow */}
-              <motion.div 
-                className="absolute -inset-[1px] rounded-3xl opacity-0 group-hover:opacity-100 transition duration-500 z-0 mix-blend-screen pointer-events-none"
-                style={{
-                  background: useMotionTemplate`radial-gradient(400px circle at ${mouseX}px ${mouseY}px, rgba(14,165,233,0.2), transparent 50%)`
-                }}
-              />
-
-              {/* Glowing Scan Line */}
-              <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-50 shadow-[0_0_15px_rgba(14,165,233,1)] z-20 pointer-events-none" 
-                   style={{
-                     animation: 'scan 4s linear infinite',
-                     top: '0%',
-                   }}
-              />
-
-              {/* Holographic Grid pattern overlay */}
-              <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,35,0)_95%,rgba(14,165,233,0.05)_95%),linear-gradient(90deg,rgba(18,16,35,0)_95%,rgba(14,165,233,0.05)_95%)] bg-[size:24px_24px] pointer-events-none z-10" />
-
-              {/* Simulated Resume Document Content */}
-              <div className="w-full h-full bg-[#0a0822] rounded-2xl p-6 border border-white/5 relative z-10 overflow-hidden flex flex-col justify-between select-none" style={{ transform: "translateZ(30px)" }}>
-                <div>
-                  {/* Header info */}
-                  <div className="border-b border-white/10 pb-4 mb-4">
-                    <div className="text-xs font-mono text-primary mb-1">C:\HARI_BIYYANI\SYSTEM_RESUME</div>
-                    <div className="text-xl font-bold text-white">{PROFILE.name}</div>
-                    <div className="text-xs font-semibold text-gray-500 tracking-wide mt-0.5">{PROFILE.roleHeadline}</div>
-                  </div>
-
-                  {/* Summary Block */}
-                  <div className="mb-4 group-hover:border-primary/20 border border-transparent p-2.5 rounded-lg transition-colors">
-                    <div className="text-[10px] font-mono text-primary mb-1 uppercase tracking-wider">01 / Executive Summary</div>
-                    <div className="text-[11px] text-gray-400 font-light leading-relaxed">
-                      CSE undergraduate student at MLRIT with virtual internship experience at Infosys. Specialized in Core Java, React, and REST APIs.
+                {/* Minimal preview mockup */}
+                <div className="w-full h-full flex flex-col justify-between text-[10px] text-gray-500 select-none">
+                  <div>
+                    {/* Header info */}
+                    <div className="border-b border-white/10 pb-3 mb-3">
+                      <div className="text-[12px] font-bold text-white">{PROFILE.name}</div>
+                      <div className="text-[8px] text-primary/70 tracking-wide font-mono mt-0.5 uppercase">{PROFILE.roleHeadline}</div>
                     </div>
-                  </div>
 
-                  {/* Skills Block */}
-                  <div className="mb-4 group-hover:border-purple-500/20 border border-transparent p-2.5 rounded-lg transition-colors">
-                    <div className="text-[10px] font-mono text-purple-400 mb-1.5 uppercase tracking-wider">02 / Tech Stack Array</div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {["Java", "Spring Boot", "React", "Node.js", "MySQL", "DSA"].map((tech, idx) => (
-                        <span key={idx} className="text-[9px] font-mono bg-white/5 px-2 py-0.5 rounded border border-white/5 text-gray-300">
+                    {/* Summary mock */}
+                    <div className="w-full h-1.5 bg-white/5 rounded mb-2" />
+                    <div className="w-5/6 h-1.5 bg-white/5 rounded mb-4" />
+
+                    {/* Skills mock */}
+                    <div className="text-[8px] font-mono text-purple-400 mb-2 uppercase">Core Engine Stack</div>
+                    <div className="flex flex-wrap gap-1 mb-4">
+                      {["Java", "Spring", "React", "Node"].map((tech, idx) => (
+                        <span key={idx} className="text-[7px] bg-white/5 px-1.5 py-0.5 rounded border border-white/5 text-gray-300 font-mono">
                           {tech}
                         </span>
                       ))}
                     </div>
+
+                    {/* Experience mock */}
+                    <div className="text-[8px] font-mono text-emerald-400 mb-1.5 uppercase">Experience</div>
+                    <div className="w-3/4 h-2 bg-white/5 rounded mb-1" />
+                    <div className="w-1/2 h-1.5 bg-white/5 rounded" />
                   </div>
 
-                  {/* Experience Block */}
-                  <div className="group-hover:border-emerald-500/20 border border-transparent p-2.5 rounded-lg transition-colors">
-                    <div className="text-[10px] font-mono text-emerald-400 mb-1 uppercase tracking-wider">03 / Professional Logs</div>
-                    <div className="text-[11px] font-bold text-white">Full Stack Intern // Infosys</div>
-                    <div className="text-[9px] text-gray-500 font-mono mb-1">Feb 2026 - Apr 2026</div>
-                    <div className="text-[11px] text-gray-400 font-light leading-relaxed">
-                      Completed structured labs focused on C++ and REST APIs. Designed scalable application layers under guide review.
-                    </div>
+                  {/* Verification stamp */}
+                  <div className="border-t border-white/10 pt-3 flex justify-between items-center text-[8px] font-mono">
+                    <span className="flex items-center gap-1 text-emerald-400">
+                      <ShieldCheck className="w-3 h-3" />
+                      CREDENTIAL
+                    </span>
+                    <span className="text-primary hover:text-white transition-colors">
+                      VIEW FULL
+                    </span>
                   </div>
                 </div>
 
-                {/* Bottom Overlay Action */}
-                <div className="border-t border-white/10 pt-4 flex justify-between items-center bg-gradient-to-t from-[#0a0822] via-[#0a0822] to-transparent">
-                  <span className="text-[10px] font-mono text-gray-500 flex items-center gap-1.5">
-                    <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
-                    INTEGRITY CHECK PASSED
-                  </span>
-                  <span className="text-xs font-mono text-primary group-hover:text-white transition-colors flex items-center gap-1 group-hover:translate-x-1 duration-300">
-                    ACCESS terminal <ExternalLink className="w-3.5 h-3.5" />
-                  </span>
-                </div>
-              </div>
+                {/* Glare overlay */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/10 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              </motion.div>
+            </div>
 
-              {/* Glass glare effect */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20" />
-            </motion.div>
-          </motion.div>
-
-        </div>
+          </div>
+        </motion.div>
       </div>
 
-      {/* INTERACTIVE FULL RESUME READER MODAL */}
+      {/* FULL RESUME MODAL POPUP */}
       <AnimatePresence>
         {isModalOpen && (
           <motion.div
@@ -287,21 +142,21 @@ export default function Resume() {
             className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
           >
             <motion.div
-              initial={{ scale: 0.9, y: 30, opacity: 0 }}
+              initial={{ scale: 0.95, y: 20, opacity: 0 }}
               animate={{ scale: 1, y: 0, opacity: 1 }}
-              exit={{ scale: 0.9, y: 30, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="w-full max-w-4xl h-[90vh] bg-[#07051b] border border-white/15 rounded-3xl overflow-hidden flex flex-col shadow-[0_0_50px_rgba(14,165,233,0.3)]"
+              exit={{ scale: 0.95, y: 20, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 350, damping: 30 }}
+              className="w-full max-w-4xl h-[90vh] bg-[#07051b] border border-white/10 rounded-2xl overflow-hidden flex flex-col shadow-[0_0_50px_rgba(14,165,233,0.2)]"
             >
               {/* Modal Header */}
               <div className="flex justify-between items-center p-6 border-b border-white/10 bg-[#090724] relative z-10">
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-primary/20 border border-primary/40 rounded-xl">
-                    <FileText className="w-6 h-6 text-primary" />
+                    <FileText className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white">System Profile Terminal</h3>
-                    <p className="text-xs font-mono text-gray-500">SYSTEM:\HARI_BIYYANI\RESUME_RAW.LOG</p>
+                    <h3 className="text-md font-bold text-white">Interactive Resume Reader</h3>
+                    <p className="text-xs font-mono text-gray-500">SYSTEM:\HARI_BIYYANI\RESUME.LOG</p>
                   </div>
                 </div>
 
@@ -316,19 +171,19 @@ export default function Resume() {
                   </a>
                   <button
                     onClick={() => setIsModalOpen(false)}
-                    className="p-2.5 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 hover:border-white/20 text-gray-400 hover:text-white transition-colors"
+                    className="p-2 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 hover:border-white/20 text-gray-400 hover:text-white transition-colors"
                   >
                     <X className="w-5 h-5" />
                   </button>
                 </div>
               </div>
 
-              {/* Scrollable Raw Content Console */}
+              {/* Scrollable Content */}
               <div className="flex-1 overflow-y-auto p-8 font-light text-gray-300 space-y-8 select-text">
                 {/* Header Profile details */}
                 <div className="text-center pb-8 border-b border-white/5">
                   <h1 className="text-3xl font-black text-white mb-2">{PROFILE.name}</h1>
-                  <h2 className="text-lg font-mono text-primary mb-4 uppercase tracking-wider">{PROFILE.roleHeadline}</h2>
+                  <h2 className="text-base font-mono text-primary mb-4 uppercase tracking-wider">{PROFILE.roleHeadline}</h2>
                   
                   <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                     <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4 text-gray-500" /> {PROFILE.location}</span>
@@ -433,15 +288,6 @@ export default function Resume() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Global CSS for the scanning animation */}
-      <style>{`
-        @keyframes scan {
-          0% { top: 0%; }
-          50% { top: 100%; }
-          100% { top: 0%; }
-        }
-      `}</style>
     </section>
   );
 }
