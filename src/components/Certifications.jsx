@@ -70,6 +70,74 @@ function CertificationCard({ cert, index }) {
 
   const cardColors = getGlowColor(cert.issuer);
 
+  const cardContent = (
+    <motion.div
+      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={`w-full h-full relative rounded-3xl border border-white/10 bg-[#07051b]/80 backdrop-blur-xl p-8 transition-all duration-500 group cursor-pointer ${cardColors}`}
+    >
+      {/* Holographic Mouse Radial Glow */}
+      <motion.div 
+        className="absolute -inset-[1px] rounded-3xl opacity-0 group-hover:opacity-100 transition duration-500 z-0 mix-blend-screen pointer-events-none"
+        style={{
+          background: useMotionTemplate`radial-gradient(350px circle at ${mouseX}px ${mouseY}px, rgba(14,165,233,0.15), transparent 60%)`
+        }}
+      />
+
+      <div className="relative z-10 flex flex-col h-full justify-between" style={{ transform: "translateZ(30px)" }}>
+        <div>
+          {/* Header */}
+          <div className="flex justify-between items-start mb-6">
+            <div className="p-3 bg-white/5 rounded-2xl border border-white/10 group-hover:bg-white/10 transition-colors">
+              {getIcon(cert.issuer)}
+            </div>
+            <div className="flex items-center gap-2 text-xs font-mono text-gray-500 bg-white/5 px-3 py-1 rounded-full border border-white/5">
+              <Calendar className="w-3.5 h-3.5" />
+              {cert.date}
+            </div>
+          </div>
+
+          {/* Title & Issuer */}
+          <h3 className="text-xl font-bold text-white mb-2 leading-tight group-hover:text-primary transition-colors">
+            {cert.name}
+          </h3>
+          <p className="text-sm font-semibold text-gray-400 mb-4 flex items-center gap-1.5">
+            <span>{cert.issuer}</span>
+            {cert.id && cert.id !== "Certified" && cert.id !== "Completed" && (
+              <>
+                <span className="w-1 h-1 rounded-full bg-gray-600"></span>
+                <span className="text-gray-500 font-mono text-xs">{cert.id}</span>
+              </>
+            )}
+          </p>
+
+          {/* Description */}
+          <p className="text-gray-400 text-sm leading-relaxed mb-6 font-light">
+            {cert.summary}
+          </p>
+        </div>
+
+        {/* Verification Badge */}
+        <div className="flex items-center justify-between border-t border-white/5 pt-4 mt-auto">
+          <span className="text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
+            <ShieldCheck className="w-4 h-4" />
+            Verified Credential
+          </span>
+          {cert.link ? (
+            <span className="text-primary-400 text-xs font-mono group-hover:text-primary transition-colors flex items-center gap-1">
+              Verify Link <ExternalLink className="w-3 h-3" />
+            </span>
+          ) : (
+            <span className="text-gray-500 text-xs font-mono">
+              Course Completed
+            </span>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50, scale: 0.95 }}
@@ -78,65 +146,13 @@ function CertificationCard({ cert, index }) {
       transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
       className="perspective-[1000px] w-full"
     >
-      <motion.div
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        className={`w-full h-full relative rounded-3xl border border-white/10 bg-[#07051b]/80 backdrop-blur-xl p-8 transition-all duration-500 group cursor-pointer ${cardColors}`}
-      >
-        {/* Holographic Mouse Radial Glow */}
-        <motion.div 
-          className="absolute -inset-[1px] rounded-3xl opacity-0 group-hover:opacity-100 transition duration-500 z-0 mix-blend-screen pointer-events-none"
-          style={{
-            background: useMotionTemplate`radial-gradient(350px circle at ${mouseX}px ${mouseY}px, rgba(14,165,233,0.15), transparent 60%)`
-          }}
-        />
-
-        <div className="relative z-10 flex flex-col h-full justify-between" style={{ transform: "translateZ(30px)" }}>
-          <div>
-            {/* Header */}
-            <div className="flex justify-between items-start mb-6">
-              <div className="p-3 bg-white/5 rounded-2xl border border-white/10 group-hover:bg-white/10 transition-colors">
-                {getIcon(cert.issuer)}
-              </div>
-              <div className="flex items-center gap-2 text-xs font-mono text-gray-500 bg-white/5 px-3 py-1 rounded-full border border-white/5">
-                <Calendar className="w-3.5 h-3.5" />
-                {cert.date}
-              </div>
-            </div>
-
-            {/* Title & Issuer */}
-            <h3 className="text-xl font-bold text-white mb-2 leading-tight group-hover:text-primary transition-colors">
-              {cert.name}
-            </h3>
-            <p className="text-sm font-semibold text-gray-400 mb-4 flex items-center gap-1.5">
-              <span>{cert.issuer}</span>
-              {cert.id && cert.id !== "Certified" && cert.id !== "Completed" && (
-                <>
-                  <span className="w-1 h-1 rounded-full bg-gray-600"></span>
-                  <span className="text-gray-500 font-mono text-xs">{cert.id}</span>
-                </>
-              )}
-            </p>
-
-            {/* Description */}
-            <p className="text-gray-400 text-sm leading-relaxed mb-6 font-light">
-              {cert.summary}
-            </p>
-          </div>
-
-          {/* Verification Badge */}
-          <div className="flex items-center justify-between border-t border-white/5 pt-4 mt-auto">
-            <span className="text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4" />
-              Verified Credential
-            </span>
-            <span className="text-gray-500 text-xs font-mono group-hover:text-white transition-colors flex items-center gap-1">
-              Verify Link <ExternalLink className="w-3 h-3" />
-            </span>
-          </div>
-        </div>
-      </motion.div>
+      {cert.link ? (
+        <a href={cert.link} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
+          {cardContent}
+        </a>
+      ) : (
+        cardContent
+      )}
     </motion.div>
   );
 }

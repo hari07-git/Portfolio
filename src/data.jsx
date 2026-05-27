@@ -114,21 +114,24 @@ export const PROFILE = {
       issuer: "ServiceNow",
       date: "May 2026",
       id: "Certified",
-      summary: "Validates technical skills in ServiceNow system configuration, user management, environment optimization, database administration, and basic scripting."
+      summary: "Validates technical skills in ServiceNow system configuration, user management, environment optimization, database administration, and basic scripting.",
+      link: "https://www.credly.com/badges/2b97ef93-f155-4c09-90aa-ce0df45579cb/public_url"
     },
     {
       name: "AI Fundamentals: Foundations for Understanding AI",
       issuer: "IBM SkillsBuild",
       date: "Dec 2025",
       id: "IBM Digital Credential",
-      summary: "Covers foundational concepts of Artificial Intelligence, neural networks, machine learning models, and ethical generative AI frameworks."
+      summary: "Covers foundational concepts of Artificial Intelligence, neural networks, machine learning models, and ethical generative AI frameworks.",
+      link: "https://www.credly.com/badges/31095e16-3605-44c5-b000-a6bf6fcbc415/public_url"
     },
     {
       name: "HackerRank Java (Basic) Certification",
       issuer: "HackerRank",
       date: "Dec 2024",
       id: "6265795AACF0",
-      summary: "Cleared the HackerRank Java skill test covering basic algorithms, Core Java, object-oriented concepts, exception handling, and data structures."
+      summary: "Cleared the HackerRank Java skill test covering basic algorithms, Core Java, object-oriented concepts, exception handling, and data structures.",
+      link: "https://www.hackerrank.com/certificates/6265795aacf0"
     },
     {
       name: "Java Full Stack Developer Certification",
