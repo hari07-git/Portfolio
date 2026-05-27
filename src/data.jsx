@@ -148,4 +148,4 @@ export const PROFILE = {
       summary: "Completed structured labs and projects focused on Java-based full-stack development, database query optimization, and enterprise architecture principles."
     }
   ],
-};
+}; // end of profile archive data
