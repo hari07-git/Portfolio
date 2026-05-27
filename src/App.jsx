@@ -10,6 +10,7 @@ import Experience from './components/Experience';
 import Contact from './components/Contact';
 import Navbar from './components/Navbar';
 import Certifications from './components/Certifications';
+import Resume from './components/Resume';
 import { PROFILE } from './data';
 
 function MouseFollower() {
@@ -206,6 +207,7 @@ function App() {
               <Projects />
               <Experience />
               <Certifications />
+              <Resume />
               <Contact />
             </main>
 
