@@ -89,8 +89,9 @@ function CinematicLoader({ onComplete }) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const duration = 2500;
-    const interval = 50;
+    const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches || window.innerWidth < 768;
+    const duration = isMobile ? 600 : 1200;
+    const interval = 30;
     const steps = duration / interval;
     let currentStep = 0;
 
@@ -99,7 +100,7 @@ function CinematicLoader({ onComplete }) {
       setProgress(Math.min(100, Math.floor((currentStep / steps) * 100)));
       if (currentStep >= steps) {
         clearInterval(timer);
-        setTimeout(onComplete, 500); // Wait a bit before fading out
+        setTimeout(onComplete, isMobile ? 100 : 200); // Wait a bit before fading out
       }
     }, interval);
 
