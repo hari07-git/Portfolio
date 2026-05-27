@@ -27,27 +27,27 @@ export default function Resume() {
         
         {/* Elegant Glass Card Container */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="max-w-4xl mx-auto rounded-3xl border border-white/10 bg-[#07051b]/40 backdrop-blur-xl p-8 md:p-12 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] group"
         >
           {/* Subtle brand neon glow border top */}
-          <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
           
           <div className="grid md:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
             
             {/* LEFT: Heading, Description, Buttons */}
             <div>
-              <div className="text-xs font-mono text-primary/70 tracking-widest mb-3 uppercase">06 // Credentials</div>
+              <div className="text-xs font-mono text-primary/70 tracking-widest mb-3 uppercase">Curriculum Vitae</div>
               
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
-                Curriculum <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">Vitae</span>
+                My <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">Resume</span>
               </h2>
               
               <p className="text-gray-400 text-base md:text-lg leading-relaxed mb-8 font-light max-w-md">
-                Download my latest resume containing projects, skills, internship experience, and technical expertise, or review it directly in the console.
+                Download my latest resume containing projects, skills, internship experience, and technical expertise.
               </p>
 
               {/* CTAs */}
@@ -55,7 +55,7 @@ export default function Resume() {
                 <a
                   href="/resume.pdf"
                   download="Biyyani_Hari_Venkata_Gopal_Resume.pdf"
-                  className="group relative flex items-center gap-2.5 px-6 py-3.5 bg-gradient-to-r from-primary to-purple-600 rounded-xl font-bold text-white shadow-[0_0_15px_rgba(14,165,233,0.25)] hover:shadow-[0_0_25px_rgba(14,165,233,0.4)] transition-all duration-300 transform hover:-translate-y-0.5"
+                  className="group relative flex items-center gap-2.5 px-6 py-3.5 bg-gradient-to-r from-primary to-purple-600 rounded-xl font-bold text-white shadow-[0_0_15px_rgba(14,165,233,0.2)] hover:shadow-[0_0_25px_rgba(14,165,233,0.35)] transition-all duration-300 transform hover:-translate-y-0.5"
                 >
                   <Download className="w-4.5 h-4.5 group-hover:translate-y-[1px] transition-transform" />
                   Download Resume
@@ -66,7 +66,7 @@ export default function Resume() {
                   className="group flex items-center gap-2.5 px-6 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-xl font-bold text-gray-300 hover:text-white transition-all duration-300"
                 >
                   <Eye className="w-4.5 h-4.5 group-hover:scale-105 transition-transform" />
-                  View Online
+                  View Resume
                 </button>
               </div>
             </div>
@@ -79,8 +79,8 @@ export default function Resume() {
                 onClick={() => setIsModalOpen(true)}
                 className="w-full max-w-[260px] aspect-[1/1.41] rounded-2xl border border-white/10 bg-[#0a0822] p-5 cursor-pointer relative overflow-hidden shadow-[0_15px_35px_rgba(0,0,0,0.5)] group/card"
               >
-                {/* Subtle card glow border */}
-                <div className="absolute inset-0 border border-primary/0 group-hover/card:border-primary/30 rounded-2xl transition-colors duration-500" />
+                {/* Soft neon border glow */}
+                <div className="absolute inset-0 border border-primary/0 group-hover/card:border-primary/20 rounded-2xl transition-colors duration-500" />
 
                 {/* Minimal preview mockup */}
                 <div className="w-full h-full flex flex-col justify-between text-[10px] text-gray-500 select-none">
@@ -88,7 +88,7 @@ export default function Resume() {
                     {/* Header info */}
                     <div className="border-b border-white/10 pb-3 mb-3">
                       <div className="text-[12px] font-bold text-white">{PROFILE.name}</div>
-                      <div className="text-[8px] text-primary/70 tracking-wide font-mono mt-0.5 uppercase">{PROFILE.roleHeadline}</div>
+                      <div className="text-[8px] text-primary/70 tracking-wide font-medium mt-0.5 uppercase">{PROFILE.roleHeadline}</div>
                     </div>
 
                     {/* Summary mock */}
@@ -96,7 +96,7 @@ export default function Resume() {
                     <div className="w-5/6 h-1.5 bg-white/5 rounded mb-4" />
 
                     {/* Skills mock */}
-                    <div className="text-[8px] font-mono text-purple-400 mb-2 uppercase">Core Engine Stack</div>
+                    <div className="text-[8px] font-medium text-purple-400 mb-2 uppercase">Core Tech Stack</div>
                     <div className="flex flex-wrap gap-1 mb-4">
                       {["Java", "Spring", "React", "Node"].map((tech, idx) => (
                         <span key={idx} className="text-[7px] bg-white/5 px-1.5 py-0.5 rounded border border-white/5 text-gray-300 font-mono">
@@ -106,7 +106,7 @@ export default function Resume() {
                     </div>
 
                     {/* Experience mock */}
-                    <div className="text-[8px] font-mono text-emerald-400 mb-1.5 uppercase">Experience</div>
+                    <div className="text-[8px] font-medium text-emerald-400 mb-1.5 uppercase">Experience</div>
                     <div className="w-3/4 h-2 bg-white/5 rounded mb-1" />
                     <div className="w-1/2 h-1.5 bg-white/5 rounded" />
                   </div>
@@ -115,10 +115,10 @@ export default function Resume() {
                   <div className="border-t border-white/10 pt-3 flex justify-between items-center text-[8px] font-mono">
                     <span className="flex items-center gap-1 text-emerald-400">
                       <ShieldCheck className="w-3 h-3" />
-                      CREDENTIAL
+                      Verified Document
                     </span>
                     <span className="text-primary hover:text-white transition-colors">
-                      VIEW FULL
+                      View Full
                     </span>
                   </div>
                 </div>
@@ -155,8 +155,8 @@ export default function Resume() {
                     <FileText className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-md font-bold text-white">Interactive Resume Reader</h3>
-                    <p className="text-xs font-mono text-gray-500">SYSTEM:\HARI_BIYYANI\RESUME.LOG</p>
+                    <h3 className="text-md font-bold text-white">Professional Resume</h3>
+                    <p className="text-xs text-gray-500">{PROFILE.preferredName} — Software Engineer</p>
                   </div>
                 </div>
 
@@ -183,7 +183,7 @@ export default function Resume() {
                 {/* Header Profile details */}
                 <div className="text-center pb-8 border-b border-white/5">
                   <h1 className="text-3xl font-black text-white mb-2">{PROFILE.name}</h1>
-                  <h2 className="text-base font-mono text-primary mb-4 uppercase tracking-wider">{PROFILE.roleHeadline}</h2>
+                  <h2 className="text-base font-medium text-primary mb-4 uppercase tracking-wider">{PROFILE.roleHeadline}</h2>
                   
                   <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                     <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4 text-gray-500" /> {PROFILE.location}</span>
@@ -194,9 +194,9 @@ export default function Resume() {
 
                 {/* Summary */}
                 <div>
-                  <h3 className="text-xs font-mono text-primary uppercase tracking-widest mb-3 flex items-center gap-2">
+                  <h3 className="text-sm font-medium text-primary uppercase tracking-wider mb-3 flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                    01 / Professional Summary
+                    Professional Summary
                   </h3>
                   <p className="text-gray-300 leading-relaxed pl-4 border-l border-white/10">
                     {PROFILE.summary}
@@ -205,9 +205,9 @@ export default function Resume() {
 
                 {/* Experience */}
                 <div>
-                  <h3 className="text-xs font-mono text-purple-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                  <h3 className="text-sm font-medium text-purple-400 uppercase tracking-wider mb-4 flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
-                    02 / Employment Experience Log
+                    Work Experience
                   </h3>
                   <div className="space-y-6 pl-4 border-l border-white/10">
                     {PROFILE.experience.map((exp, idx) => (
@@ -235,14 +235,14 @@ export default function Resume() {
 
                 {/* Technical Arrays */}
                 <div>
-                  <h3 className="text-xs font-mono text-emerald-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                  <h3 className="text-sm font-medium text-emerald-400 uppercase tracking-wider mb-4 flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    03 / Skills & Architecture Modules
+                    Technical Skills
                   </h3>
                   <div className="grid sm:grid-cols-2 gap-4 pl-4 border-l border-white/10">
                     {PROFILE.skills.map((skill, idx) => (
                       <div key={idx} className="p-4 bg-white/5 rounded-xl border border-white/5">
-                        <div className="font-mono text-xs text-emerald-400 mb-2 uppercase tracking-wide flex items-center gap-1.5">
+                        <div className="text-xs font-medium text-emerald-400 mb-2 uppercase tracking-wide flex items-center gap-1.5">
                           {skill.category}
                         </div>
                         <div className="flex flex-wrap gap-1.5">
@@ -259,9 +259,9 @@ export default function Resume() {
 
                 {/* Education Log */}
                 <div>
-                  <h3 className="text-xs font-mono text-amber-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                  <h3 className="text-sm font-medium text-amber-400 uppercase tracking-wider mb-4 flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                    04 / Academic Logs
+                    Education
                   </h3>
                   <div className="space-y-6 pl-4 border-l border-white/10">
                     {PROFILE.education.map((edu, idx) => (
@@ -278,11 +278,6 @@ export default function Resume() {
                     ))}
                   </div>
                 </div>
-              </div>
-
-              {/* Modal Console Footer */}
-              <div className="p-4 border-t border-white/10 bg-[#090724] text-center text-[10px] font-mono text-gray-500">
-                VERIFIED TRANSACTION COMPLETED. TERMINAL CLOSED AUTOMATICALLY ON TERMINATION.
               </div>
             </motion.div>
           </motion.div>
