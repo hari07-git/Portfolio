@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
+    <title>About — Hari Biyyani</title>
+    <meta name="author" content="Hari Biyyani" />
+    <meta name="description" content="About Hari Biyyani — SDE-focused full-stack engineer." />
+    <meta name="view-transition" content="same-origin" />
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="me" href="https://www.linkedin.com/in/hari-biyyani-308335355/" />
+    <link rel="me" href="https://github.com/hari07-git" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="about">
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    <header class="site-header" id="top">
+      <div class="container header-inner">
+        <a class="brand" href="./" aria-label="Go to home">
+          <span class="brand-mark" aria-hidden="true">H</span>
+          <span class="brand-text">Hari Biyyani</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <button class="icon-btn nav-toggle" type="button" aria-expanded="false" aria-controls="nav-panel">
+            <span class="sr-only">Open menu</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                d="M4 7h16M4 12h16M4 17h16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+
+          <div class="nav-panel" id="nav-panel">
+            <a data-nav href="./">Home</a>
+            <a data-nav href="./about.html">About</a>
+            <a data-nav href="./experience.html">Experience</a>
+            <a data-nav href="./projects.html">Projects</a>
+            <a data-nav href="./skills.html">Skills</a>
+            <a data-nav href="./contact.html">Contact</a>
+            <a class="nav-resume" href="./assets/resume.pdf" target="_blank" rel="noreferrer">Resume</a>
+          </div>
+        </nav>
+
+        <div class="header-actions">
+          <button class="icon-btn theme-toggle" type="button" aria-pressed="false">
+            <span class="sr-only">Toggle theme</span>
+            <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                d="M12 18a6 6 0 1 1 4.47-10.04A7 7 0 0 0 12 18Z"
+                fill="currentColor"
+                opacity="0.9"
+              />
+            </svg>
+          </button>
+          <a class="btn btn-primary" href="./assets/resume.pdf" target="_blank" rel="noreferrer">Download Resume</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="content">
+      <section class="page-hero">
+        <div class="container">
+          <p class="kicker">About</p>
+          <h1 class="page-title">How I build, what I care about, and what I’m targeting.</h1>
+          <div class="about-hero-grid">
+            <div>
+              <p class="lead" id="about-summary"></p>
+              <div class="tag-row" id="about-tags" aria-label="Highlights"></div>
+            </div>
+            <div class="about-portrait reveal" aria-label="Portrait">
+              <img src="./assets/profile.jpg" alt="Portrait of Hari" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="grid two">
+            <div class="card reveal">
+              <h3>Focus Areas</h3>
+              <ul class="list" id="focus-areas"></ul>
+            </div>
+            <div class="card reveal">
+              <h3>What you can expect</h3>
+              <ul class="list" id="expectations"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2>Quick links</h2>
+            <p class="muted">Profiles and resume.</p>
+          </div>
+          <div class="grid two">
+            <div class="card reveal">
+              <h3>Profiles</h3>
+              <div class="contact-actions" id="contact-actions"></div>
+            </div>
+            <div class="card reveal">
+              <h3>Resume</h3>
+              <p class="muted">Download the latest copy (PDF).</p>
+              <div class="contact-actions">
+                <a class="btn btn-primary" href="./assets/resume.pdf" target="_blank" rel="noreferrer">Open Resume</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-left">
+          <span id="footer-name"></span>
+          <span class="dot" aria-hidden="true">•</span>
+          <span class="muted">© <span id="year"></span></span>
+        </div>
+        <a class="footer-top" href="#top">Back to top</a>
+      </div>
+    </footer>
+
+    <script src="./data.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
