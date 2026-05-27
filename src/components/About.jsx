@@ -56,10 +56,21 @@ export default function About() {
             </motion.div>
 
             {/* Central Avatar container */}
-            <div className="relative w-56 h-56 md:w-64 md:h-64 rounded-full overflow-hidden border border-white/20 z-10 glass backdrop-blur-md flex flex-col items-center justify-center text-slate-500 shadow-[0_0_40px_rgba(14,165,233,0.3)]">
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-secondary/10 z-0"></div>
-              <User className="w-24 h-24 mb-2 opacity-50 z-10 text-white" />
-              <span className="text-sm z-10 text-white/70 tracking-widest uppercase">Profile</span>
+            <div className="relative w-56 h-56 md:w-64 md:h-64 rounded-full overflow-hidden border border-white/20 z-10 bg-black/40 backdrop-blur-md shadow-[0_0_40px_rgba(14,165,233,0.3)] group cursor-pointer flex items-center justify-center">
+              <img 
+                src="/profile.jpg" 
+                alt={PROFILE.preferredName} 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-10" 
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  const fallback = e.target.parentNode.querySelector('.fallback-avatar');
+                  if (fallback) fallback.style.display = 'flex';
+                }}
+              />
+              <div className="absolute inset-0 fallback-avatar hidden flex-col items-center justify-center text-slate-500 bg-gradient-to-tr from-primary/10 to-secondary/10">
+                <User className="w-24 h-24 mb-2 opacity-50 text-white" />
+                <span className="text-sm text-white/70 tracking-widest uppercase">Profile</span>
+              </div>
             </div>
           </motion.div>
 
