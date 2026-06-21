@@ -12,16 +12,17 @@ export default function Skills() {
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
-  // Flatten all skills and categorize them into 3 rings
+  // Flatten all skills and categorize them into 4 rings
   const rings = [
     PROFILE.skills[0]?.items || [],
     PROFILE.skills[1]?.items || [],
-    [...(PROFILE.skills[2]?.items || []), ...(PROFILE.skills[3]?.items || [])]
+    [...(PROFILE.skills[2]?.items || []), ...(PROFILE.skills[3]?.items || [])],
+    PROFILE.skills[4]?.items || []
   ];
 
-  const ringSizes = [300, 450, 600];
-  const ringSpeeds = [25, 35, 45];
-  const ringDirections = [1, -1, 1]; // 1 for clockwise, -1 for counter-clockwise
+  const ringSizes = [250, 400, 550, 700];
+  const ringSpeeds = [25, 35, 45, 55];
+  const ringDirections = [1, -1, 1, -1]; // 1 for clockwise, -1 for counter-clockwise
 
   return (
     <section id="skills" className="py-32 relative z-10 overflow-hidden" ref={ref}>

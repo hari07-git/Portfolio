@@ -66,6 +66,17 @@ export const PROFILE = {
       image: "/mockups/agrosmart_simple.png"
     },
     {
+      name: "Sanjeevani",
+      tagline: "Blood Emergency Management Platform",
+      description:
+        "Full-stack blood donor-request matching platform built using ServiceNow App Engine Studio. Features 4 custom tables, 40+ custom fields, ACL role security, and event-driven Flow Designer notification workflows.",
+      tech: ["ServiceNow", "App Engine", "Flow Designer", "JavaScript", "ACLs", "Business Rules"],
+      links: [
+        { label: "GitHub", href: "https://github.com/hari07-git" },
+      ],
+      image: "/mockups/sanjeevani_simple.png"
+    },
+    {
       name: "Librario",
       tagline: "Library Management System",
       description:
@@ -98,6 +109,11 @@ export const PROFILE = {
       icon: <Terminal className="w-6 h-6" />,
       items: ["Git", "REST APIs", "Data Structures", "Algorithms", "OOP"],
     },
+    {
+      category: "Platforms & Tools",
+      icon: <Cpu className="w-6 h-6" />,
+      items: ["ServiceNow", "App Engine Studio", "Flow Designer", "ACLs", "Script Includes", "Business Rules", "GlideRecord"],
+    }
   ],
   education: [
     {
@@ -109,6 +125,13 @@ export const PROFILE = {
     },
   ],
   certifications: [
+    {
+      name: "ServiceNow Certified Application Developer (CAD)",
+      issuer: "ServiceNow",
+      date: "Certified",
+      id: "CAD Certification",
+      summary: "Validates application development expertise on the ServiceNow platform, covering application scoped administration, scripting, integrations, and flow design."
+    },
     {
       name: "ServiceNow Certified System Administrator (CSA)",
       issuer: "ServiceNow",
