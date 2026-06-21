@@ -85,81 +85,7 @@ function ScrollProgress() {
   );
 }
 
-function CinematicLoader({ onComplete }) {
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches || window.innerWidth < 768;
-    const duration = isMobile ? 600 : 1200;
-    const interval = 30;
-    const steps = duration / interval;
-    let currentStep = 0;
-
-    const timer = setInterval(() => {
-      currentStep++;
-      setProgress(Math.min(100, Math.floor((currentStep / steps) * 100)));
-      if (currentStep >= steps) {
-        clearInterval(timer);
-        setTimeout(onComplete, isMobile ? 100 : 200); // Wait a bit before fading out
-      }
-    }, interval);
-
-    return () => clearInterval(timer);
-  }, [onComplete]);
-
-  return (
-    <motion.div 
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
-      className="fixed inset-0 z-[100] bg-[#030014] flex flex-col items-center justify-center overflow-hidden"
-    >
-      {/* Gathering particles effect (simulated with CSS for loader) */}
-      <div className="absolute inset-0 flex justify-center items-center opacity-30 pointer-events-none">
-        <div className="w-96 h-96 bg-primary/20 rounded-full blur-[100px] animate-pulse"></div>
-      </div>
-
-      <div className="relative w-32 h-32 flex flex-col items-center justify-center z-10">
-        <motion.div 
-          animate={{ rotate: 360 }}
-          transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 border-t-2 border-l-2 border-primary rounded-full shadow-[0_0_15px_rgba(14,165,233,0.5)]"
-        ></motion.div>
-        <motion.div 
-          animate={{ rotate: -360 }}
-          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-2 border-b-2 border-r-2 border-secondary rounded-full"
-        ></motion.div>
-        
-        {/* Glitch logo */}
-        <motion.div 
-          className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary relative"
-          animate={{ 
-            x: [0, -2, 2, -1, 1, 0],
-            opacity: [1, 0.8, 1, 0.9, 1]
-          }}
-          transition={{ duration: 0.2, repeat: Infinity, repeatDelay: 1.5 }}
-        >
-          HB
-        </motion.div>
-      </div>
-
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="mt-8 flex flex-col items-center z-10"
-      >
-        <div className="text-primary font-mono text-sm tracking-widest mb-2">INITIALIZING SYSTEM</div>
-        <div className="text-white font-mono text-2xl font-bold">{progress}%</div>
-      </motion.div>
-    </motion.div>
-  );
-}
-
 function App() {
-  const [loading, setLoading] = useState(true);
-
   // Initialize Lenis
   useEffect(() => {
     const lenis = new Lenis({
@@ -186,38 +112,25 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#030014] text-slate-200 selection:bg-primary/30 overflow-x-hidden">
-      <AnimatePresence mode="wait">
-        {loading ? (
-          <CinematicLoader key="loader" onComplete={() => setLoading(false)} />
-        ) : (
-          <motion.div
-            key="content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-          >
-            <ScrollProgress />
-            <MouseFollower />
-            <ParticlesBackground />
-            <Navbar />
-            
-            <main className="relative z-10">
-              <Hero />
-              <About />
-              <Skills />
-              <Projects />
-              <Experience />
-              <Certifications />
-              <Resume />
-              <Contact />
-            </main>
+      <ScrollProgress />
+      <MouseFollower />
+      <ParticlesBackground />
+      <Navbar />
+      
+      <main className="relative z-10">
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Experience />
+        <Certifications />
+        <Resume />
+        <Contact />
+      </main>
 
-            <footer className="py-8 text-center text-gray-500 text-sm border-t border-white/5 relative z-10 bg-[#030014]/80 backdrop-blur-md">
-              <p>© {new Date().getFullYear()} {PROFILE.preferredName}. All rights reserved.</p>
-            </footer>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <footer className="py-8 text-center text-gray-500 text-sm border-t border-white/5 relative z-10 bg-[#030014]/80 backdrop-blur-md">
+        <p>© {new Date().getFullYear()} {PROFILE.preferredName}. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
